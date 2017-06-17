@@ -1,6 +1,23 @@
 @CHARSET "UTF-8";
 
-#map {
-	height: 400px;
-	width: 100%;
+.map {
+    height: 500px;
+    width: 750px;
+    margin: 10px 0px 0px 200px;
+}
+
+.map_user_legend {
+	margin: 20px 0px 0px 200px;
+	
+}
+
+.map_user_legend_checkbox {
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.map_user_legend_name {
+	font-size: 18px;
+	display: inline-block;
+	margin: 5px 0px 0px 10px;
 }

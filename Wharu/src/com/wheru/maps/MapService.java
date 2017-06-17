@@ -1,79 +1,86 @@
 package com.wheru.maps;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Map;
+
+import org.hibernate.Session;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.wheru.database.DBService;
+import com.wheru.dao.Event;
+import com.wheru.dao.MapCoordinate;
+import com.wheru.dao.UserEvent;
 
 public class MapService {
-	// this is a test array of lat longs
-	private ArrayList<ArrayList<Double>> latLongArray;
-	private Double leftLong, rightLong, topLat, bottomLat; // bounderies of map
-	private String latLongJson;
-  
-    public MapService() {
-    	latLongArray = new ArrayList<ArrayList<Double>>();
-    	leftLong = 181.0;
-    	rightLong = -181.0;
-    	topLat = -91.0;
-    	bottomLat = 91.0;
+    public void addCoordinate(Map<String, String[]> paramMap) {
     	
-    	// Right now I'm setting these values here for testing.  We want to get
-    	// the values from the DB utlimately
+    	MapCoordinate mapCoordinate = new MapCoordinate();
     	
-    	// james joyce
-    	ArrayList<Double> latLongEntry = new ArrayList<Double>();
-    	latLongEntry.add(34.417060);
-    	latLongEntry.add(-119.696138);
-    	latLongArray.add(latLongEntry);
+    	String eventIdStr = paramMap.get("eventId")[0];
+
+    	String userIdStr = paramMap.get("userId")[0];
+    	//mapCoordinate.setUserId(Long.parseLong(userIdStr));
+    	mapCoordinate.setName("");
+    	mapCoordinate.setDescription("");
+    	mapCoordinate.setStatus(1);
+    	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+    	mapCoordinate.setArrivalTime(currentTime);
+    	mapCoordinate.setLatestTime(currentTime);
+    	String latitudeStr = paramMap.get("latitude")[0];
+    	mapCoordinate.setLatitude(Double.parseDouble(latitudeStr));
+    	String longitudeStr = paramMap.get("latitude")[0];
+    	mapCoordinate.setLongitude(Double.parseDouble(longitudeStr));
     	
-    	// joes
-    	latLongEntry = new ArrayList<Double>();
-    	latLongEntry.add(34.417764);
-    	latLongEntry.add(-119.696577);
-    	latLongArray.add(latLongEntry);
-    	
-    	// Seven
-    	latLongEntry = new ArrayList<Double>();
-    	latLongEntry.add(34.415215);
-    	latLongEntry.add(-119.691784);
-    	latLongArray.add(latLongEntry);
-    	
-    	// set the map bounderies to the outermost lat and long values
-    	for (ArrayList<Double> latLongPair : latLongArray) {
-    		if (latLongPair.get(0) > topLat) 
-    			topLat = latLongPair.get(0);
-    		if (latLongPair.get(0) < bottomLat) 
-    			bottomLat = latLongPair.get(0);
-    		if (latLongPair.get(1) > rightLong) 
-    			rightLong = latLongPair.get(1);
-    		if (latLongPair.get(1) < leftLong) 
-    			leftLong = latLongPair.get(1);
-    	}
-    	
-    	latLongJson = new Gson().toJson(latLongArray);
+    	Session session = DBService.instance().getSession();
+		try {
+			session.beginTransaction();
+			Event event = (Event)session.get(Event.class, 1);
+			//event.getMapCoordinates().size();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}	
     }
+		
+    		
+    		
     
-    public ArrayList<ArrayList<Double>> getLatLongArray() {
-    	return latLongArray;
-    }
+    	
+//    	MapCoordinateDAO mapCoordinateDAO = MapCoordinateDAO.getSingleton();
+//    	mapCoordinateDAO.put(mapCoordinate);
 
-	public Double getLeftLong() {
-		return leftLong;
-	}
+	
+//	public ArrayList<MapCoordinate> getMapCoordinatesForEvent(Integer eventId) {
+//    	MapCoordinateDAO mapCoordinateDAO = MapCoordinateDAO.getSingleton();
+//    	ArrayList<MapCoordinate> mapCoordinateArray = null;
+//    	try {
+//    		mapCoordinateArray = mapCoordinateDAO.getForEvent(eventId);
+//    	} catch (Exception e) {
+//    		System.out.println("Error getting map coordinates for event: " + e.getMessage());
+//    	}
+//    	return mapCoordinateArray;
+//    }
 
-	public Double getRightLong() {
-		return rightLong;
-	}
-
-	public Double getTopLat() {
-		return topLat;
-	}
-
-	public Double getBottomLat() {
-		return bottomLat;
-	}
-
-	public String getLatLongJson() {
-		return latLongJson;
+	public String getEventJson(Long eventId) {
+    	Session session = DBService.instance().getSession();
+    	Event event = null;
+    	try {
+			session.beginTransaction();
+			event = (Event)session.get(Event.class, eventId);
+			for(UserEvent userEvent : event.getUserEvents()) {
+				userEvent.getUser();
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			System.out.println("Error getting session and map coordinates: " + e.getMessage());
+		} finally {
+			session.close();
+		}
+    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    	return gson.toJson(event);
 	}
 }

@@ -5,19 +5,18 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="css/main.css" rel="stylesheet" type="text/css">
 	<link href="css/map.css" rel="stylesheet" type="text/css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHr9F4YhtLItojVpgcr_9zas28XeQokxw"></script>
+	<script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerwithlabel/src/markerwithlabel.js"></script>
 	<script src="js/maps/showMap.js"></script>
 	
 	<title>Map</title>
 </head>
 <body>
-	<div id="latLongJson" data-json="${requestScope.latLongJson}"></div>
-	<div id="topLat" data-lat="${requestScope.topLat}"></div>
-	<div id="bottomLat" data-lat="${requestScope.bottomLat}"></div>
-	<div id="leftLong" data-long="${requestScope.leftLong}"></div>
-	<div id="rightLong" data-long="${requestScope.rightLong}"></div>
-	<div id="map"></div>
+	<div id="eventJson" data-json="${requestScope.eventJson}"></div>
+	<div id="map" class="map"></div>
+	<div id="map_user_legend" class="map_user_legend"></div>
 </body>
 </html>
