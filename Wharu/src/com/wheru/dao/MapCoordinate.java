@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.wheru.Exceptions.InvalidCoordinateException;
 
 @Entity
 @Table(name = "map_coordinate")
@@ -35,7 +36,7 @@ public class MapCoordinate extends PersistentObject {
 	public UserEvent getUserEvent() {
 		return userEvent;
 	}
-	public void setEvent(UserEvent userEvent) {
+	public void setUserEvent(UserEvent userEvent) {
 		this.userEvent = userEvent;
 	}
 	public String getName() {
@@ -73,6 +74,24 @@ public class MapCoordinate extends PersistentObject {
 	}
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
+	}
+	
+	public static void validateCoordinates(Double latitude, Double longitude) throws InvalidCoordinateException {
+		StringBuilder errorMessage = null;
+		if(latitude > 90 || latitude < -90) {
+			if(errorMessage == null)
+				errorMessage = new StringBuilder("");
+			errorMessage.append("Latitude " + latitude + " is out of bounds. ");
+		}
+		if(longitude > 180 || longitude < -180) {
+			if(errorMessage == null)
+				errorMessage = new StringBuilder("");
+			errorMessage.append("Longitude " + longitude + " is out of bounds. ");
+		}
+		
+		if(errorMessage != null) 
+			throw new InvalidCoordinateException(errorMessage.toString());
+ 			
 	}
 	
 //	public static MapCoordinate get(Integer id) {

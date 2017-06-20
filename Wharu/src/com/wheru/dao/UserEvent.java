@@ -9,8 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
+
+import org.hibernate.Session;
 
 import com.google.gson.annotations.Expose;
+import com.wheru.Exceptions.DAOException;
+import com.wheru.database.DBService;
 
 @Entity
 @Table(name = "user_event")
@@ -51,5 +56,32 @@ public class UserEvent extends PersistentObject {
 	}
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static UserEvent getByUserAndEvent(Long userId, Long eventId) throws DAOException {
+    	Session session = null;
+    	UserEvent userEvent = null;
+	   	try {
+	   		session = DBService.instance().getSession();
+			session.beginTransaction();
+			String hql = "FROM UserEvent UE WHERE user_id = :userId AND event_id = :eventId";
+
+			TypedQuery<UserEvent> query = session.createQuery(hql);	
+			query.setParameter("userId", userId);
+			query.setParameter("eventId", eventId);
+			List<UserEvent> userEvents = query.getResultList();
+			
+			if (userEvents.size() > 0) 
+				userEvent = userEvents.get(0);
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new DAOException("Error getting user event for user  " + userId + " and event " + eventId + ": " + e.getMessage());
+		} finally {
+			session.close();
+		}
+	   	return userEvent;
 	}
 }

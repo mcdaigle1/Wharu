@@ -8,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.Session;
+
 import com.google.gson.annotations.Expose;
+import com.wheru.database.DBService;
 
 @MappedSuperclass
 public abstract class PersistentObject {
@@ -37,19 +40,19 @@ public abstract class PersistentObject {
 		this.status = status;
 	}
 	
-//	public void save() {
-//		Session session = DBService.instance().getSession();
-//		try {
-//			session.beginTransaction();
-//			session.save(this);
-//			session.getTransaction().commit();
-//		} catch (Exception e) {
-//			session.getTransaction().rollback();
-//		} finally {
-//			session.close();
-//		}
-//	}
-//	
+	public void save() {
+		Session session = DBService.instance().getSession();
+		try {
+			session.beginTransaction();
+			session.save(this);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
+	}
+
 //	public static <T> T get(Class<T> objectClass, Integer id) {
 //		Session session = DBService.instance().getSession();
 //		T persistantObject = null;

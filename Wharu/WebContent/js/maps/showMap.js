@@ -66,7 +66,7 @@ function initMap(latLongArray) {
 			    labelAnchor: new google.maps.Point(-15, 7),
 			    labelClass: "map_labels", // the CSS class for the label
 			    labelInBackground: false,
-			    labelStyle: {color: "#FF0000"}
+			    labelStyle: {color: "#" + user_event_color}
 			});
 			
 			lineCoordinates.push({lat: mapCoords[j]["latitude"], lng: mapCoords[j]["longitude"]}); 
@@ -83,7 +83,7 @@ function initMap(latLongArray) {
 		var linePath = new google.maps.Polyline({
 			path: lineCoordinates,
 			geodesic: true,
-			strokeColor: '#FF0000',
+			strokeColor: "#" + user_event_color,
 			strokeOpacity: 1.0,
 			strokeWeight: 2
 		});

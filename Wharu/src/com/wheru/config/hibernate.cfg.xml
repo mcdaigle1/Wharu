@@ -23,7 +23,7 @@
         <property name="hibernate.max_fetch_depth">3</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.format_sql">false</property>
         <property name="hibernate.generate_statistics">false</property>
         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
         <mapping class="com.wheru.dao.User"/>

@@ -10,7 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.Session;
+
 import com.google.gson.annotations.Expose;
+import com.wheru.Exceptions.DAOException;
+import com.wheru.database.DBService;
 
 @Entity
 @Table(name = "event")
@@ -68,7 +72,22 @@ public class Event extends PersistentObject {
 		this.endTime = endTime;
 	}
 	
-//	public static Event get(Integer id) {
-//		return (Event)get(Event.class, id);
-//	}
+	public static Event get(Long id) throws DAOException {
+    	Session session = DBService.instance().getSession();
+    	Event event = null;
+	   	try {
+			session.beginTransaction();
+			event = (Event)session.get(Event.class, id);
+			for(UserEvent userEvent : event.getUserEvents()) {
+				userEvent.getUser();
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new DAOException("Error getting event with ID " + id + ": " + e.getMessage());
+		} finally {
+			session.close();
+		}
+	   	return event;
+	}
 }

@@ -30,15 +30,21 @@ public class MapTestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		MapService mapService = new MapService();
-
-		String eventJson = mapService.getEventJson(new Long(1));
-
-		request.setAttribute("eventJson", URLEncoder.encode(eventJson, "UTF-8"));
-		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/maps/showMap.jsp");
-		dispatcher.forward(request, response); 
+		try {
+			MapService mapService = new MapService();
+	
+			String eventJson = mapService.getEventJson(new Long(1));
+	
+			request.setAttribute("eventJson", URLEncoder.encode(eventJson, "UTF-8"));
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/maps/showMap.jsp");
+			dispatcher.forward(request, response); 
+		} catch(Exception e) {
+			System.out.println("Error while getting map: " + e.getMessage());
+		}
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write("Success");
 	}
 
 	/**

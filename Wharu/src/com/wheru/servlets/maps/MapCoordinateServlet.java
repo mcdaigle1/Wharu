@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wheru.Exceptions.ParamException;
 import com.wheru.maps.MapService;
 
 /**
@@ -21,25 +22,39 @@ public class MapCoordinateServlet extends HttpServlet {
      */
     public MapCoordinateServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String action = request.getParameter("action");
-		
-		switch (action) {
-		case "addCoordinate: ":
-			MapService mapService = new MapService();
-			mapService.addCoordinate(request.getParameterMap());
-			break;
-		default:
-			System.out.println("ERROR: in MapCoordinateServlet - could not find action: " + action);
-			break;
-		}	
+		try {
+			String action = request.getParameter("action");
+			
+			switch (action) {
+			case "addCoordinate":
+				MapService mapService = new MapService();
+				mapService.addCoordinate(request.getParameterMap());
+				break;
+			default:
+				System.out.println("ERROR: in MapCoordinateServlet - could not find action: " + action);
+				break;
+			}	
+		} catch(ParamException pe) {
+			// MCD TODO replace with logger
+			String errorStr = "Error with parameters while setting map coordinates: " + pe.getMessage() + ": " + pe.getClass().getName();
+			System.out.println(errorStr);
+			for (StackTraceElement element : pe.getStackTrace())
+				System.out.println(element.toString());
+			response.sendError(400, errorStr);
+		} catch(Exception e) {
+			// MCD TODO replace with logger
+			String errorStr = "Error while setting map coordinates: " + e.getMessage() + ": " + e.getClass().getName();
+			System.out.println(errorStr);
+			for (StackTraceElement element : e.getStackTrace())
+				System.out.println(element.toString());
+			response.sendError(500, errorStr);
+		}
 	}
 
 	/**
