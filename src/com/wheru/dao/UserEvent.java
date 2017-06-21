@@ -15,7 +15,7 @@ import org.hibernate.Session;
 
 import com.google.gson.annotations.Expose;
 import com.wheru.Exceptions.DAOException;
-import com.wheru.database.DBService;
+import com.wheru.services.DBService;
 
 @Entity
 @Table(name = "user_event")
