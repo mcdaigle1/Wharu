@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wheru.maps.MapService;
+import com.wheru.services.MapService;
 import com.wheru.servlets.BaseServlet;
 
 /**

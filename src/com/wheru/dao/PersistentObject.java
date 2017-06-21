@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.Session;
 
 import com.google.gson.annotations.Expose;
-import com.wheru.database.DBService;
+import com.wheru.services.DBService;
 
 @MappedSuperclass
 public abstract class PersistentObject {
