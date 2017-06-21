@@ -11,13 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wheru.maps.MapService;
+import com.wheru.servlets.BaseServlet;
 
 /**
  * Servlet implementation class MapTestServlet
  */
 @WebServlet("/MapTestServlet")
-public class MapTestServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class MapTestServlet extends BaseServlet {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4701999979662082799L;
        
     /**
      * @see HttpServlet#HttpServlet()

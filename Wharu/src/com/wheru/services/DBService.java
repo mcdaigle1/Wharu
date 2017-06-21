@@ -1,4 +1,4 @@
-package com.wheru.database;
+package com.wheru.services;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

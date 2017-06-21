@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wheru.Exceptions.ParamException;
-import com.wheru.maps.MapService;
+import com.wheru.services.MapService;
+import com.wheru.servlets.BaseServlet;
 
 /**
  * Servlet implementation class MapCoordinateServlet
  */
 @WebServlet(description = "Handle map coordinate requests", urlPatterns = { "/MapCoordinate" })
-public class MapCoordinateServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class MapCoordinateServlet extends BaseServlet {
+
+	private static final long serialVersionUID = -6920115174099378227L;
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,6 +33,8 @@ public class MapCoordinateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String action = request.getParameter("action");
+			if(action == null)
+				throw new ParamException("Action is missing");
 			
 			switch (action) {
 			case "addCoordinate":
@@ -37,22 +42,15 @@ public class MapCoordinateServlet extends HttpServlet {
 				mapService.addCoordinate(request.getParameterMap());
 				break;
 			default:
-				System.out.println("ERROR: in MapCoordinateServlet - could not find action: " + action);
-				break;
+				throw new ParamException("Could not find action: " + action);
 			}	
 		} catch(ParamException pe) {
-			// MCD TODO replace with logger
-			String errorStr = "Error with parameters while setting map coordinates: " + pe.getMessage() + ": " + pe.getClass().getName();
-			System.out.println(errorStr);
-			for (StackTraceElement element : pe.getStackTrace())
-				System.out.println(element.toString());
+			String errorStr = "Parameter error in MapCoordinate call: " + pe.getMessage();
+			l.error(errorStr, pe);
 			response.sendError(400, errorStr);
 		} catch(Exception e) {
-			// MCD TODO replace with logger
-			String errorStr = "Error while setting map coordinates: " + e.getMessage() + ": " + e.getClass().getName();
-			System.out.println(errorStr);
-			for (StackTraceElement element : e.getStackTrace())
-				System.out.println(element.toString());
+			String errorStr = "Error in MapCoordinate call";
+			l.error(errorStr, e);
 			response.sendError(500, errorStr);
 		}
 	}
