@@ -11,8 +11,6 @@ local.properties
 .recommenders
 .DS_Store
 
-build/
-
 WebContent/work/
 
 WebContent/logs/

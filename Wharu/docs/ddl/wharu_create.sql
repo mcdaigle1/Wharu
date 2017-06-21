@@ -51,7 +51,7 @@ INSERT INTO user_event (create_time, mod_time, status, user_id, event_id, color)
 VALUES (now(), now(), 1, 1, 1, 'FF0000');
 
 INSERT INTO user_event (create_time, mod_time, status, user_id, event_id, color)
-VALUES (now(), now(), 1, 2, 1, 'FF0000');
+VALUES (now(), now(), 1, 2, 1, '800080');
 
 CREATE TABLE IF NOT EXISTS map_coordinate (
   id              BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,

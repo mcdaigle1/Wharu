@@ -1,4 +1,4 @@
-package com.wheru.maps;
+package com.wheru.services;
 
 import java.sql.Timestamp;
 import java.util.Map;
