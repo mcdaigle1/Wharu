@@ -11,6 +11,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.Session;
 
 import com.google.gson.annotations.Expose;
+import com.wheru.Exceptions.DAOException;
 import com.wheru.services.DBService;
 
 @MappedSuperclass
@@ -40,14 +41,17 @@ public abstract class PersistentObject {
 		this.status = status;
 	}
 	
-	public void save() {
-		Session session = DBService.instance().getSession();
+	public void save() throws DAOException {	
+		Session session = null;
+
 		try {
+			session = DBService.instance().getSession();
 			session.beginTransaction();
 			session.save(this);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
+			throw new DAOException("Could not save object to db: " + e.getMessage(), e);
 		} finally {
 			session.close();
 		}

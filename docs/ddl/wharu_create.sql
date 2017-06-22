@@ -11,16 +11,16 @@ CREATE TABLE IF NOT EXISTS user (
   status          INT             NOT NULL,
   email           VARCHAR(256)    NOT NULL UNIQUE,
   display_name    VARCHAR(256)    NOT NULL UNIQUE,
-  validation_id   VARCHAR(256)    NOT NULL,
-  password_salt   VARCHAR(256)    NOT NULL,
-  password_md5    VARCHAR(128)    NOT NULL
+  validation_id   VARCHAR(256)    NOT NULL UNIQUE,
+  password_salt   VARCHAR(256)    NULL,
+  password_md5    VARCHAR(128)    NULL
 ); 
 
 INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, password_salt, password_md5)
 VALUES (now(), now(), 0, 'mcdaigle1@gmail.com', 'Doog', '1234', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac');
 
 INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, password_salt, password_md5)
-VALUES (now(), now(), 0, 'fooster@domain.com', 'Fooster', '1234', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac');
+VALUES (now(), now(), 0, 'fooster@domain.com', 'Fooster', '3456', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac');
 
 CREATE TABLE IF NOT EXISTS event (
   id              BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,

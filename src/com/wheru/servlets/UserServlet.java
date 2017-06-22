@@ -1,29 +1,26 @@
-package com.wheru.servlets.maps;
+package com.wheru.servlets;
 
 import java.io.IOException;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wheru.Exceptions.ParamException;
-import com.wheru.services.MapService;
-import com.wheru.servlets.BaseServlet;
+import com.wheru.services.UserService;
 
 /**
- * Servlet implementation class MapCoordinateServlet
+ * Servlet implementation class UserServlet
  */
-@WebServlet(description = "Handle map coordinate requests", urlPatterns = { "/MapCoordinate" })
-public class MapCoordinateServlet extends BaseServlet {
+@WebServlet("/User")
+public class UserServlet extends BaseServlet implements Servlet {
+	private static final long serialVersionUID = -6854581740498291431L;
 
-	private static final long serialVersionUID = -6920115174099378227L;
-
-       
-    /**
-     * @see HttpServlet#HttpServlet()
+	/**
+     * @see BaseServlet#BaseServlet()
      */
-    public MapCoordinateServlet() {
+    public UserServlet() {
         super();
     }
 
@@ -37,19 +34,19 @@ public class MapCoordinateServlet extends BaseServlet {
 				throw new ParamException("Action is missing");
 			
 			switch (action) {
-			case "addCoordinate":
-				MapService mapService = new MapService();
-				mapService.addCoordinate(request.getParameterMap());
+			case "addUser":
+				UserService userService = new UserService();
+				userService.addUser(request.getParameterMap());
 				break;
 			default:
-				throw new ParamException("Could not find action: " + action);
+				throw new ParamException("Invalid action: " + action);
 			}	
 		} catch(ParamException pe) {
-			String errorStr = "Parameter error in MapCoordinate call: " + pe.getMessage();
+			String errorStr = "Parameter error in User call: " + pe.getMessage();
 			l.error(errorStr, pe);
 			response.sendError(400, errorStr);
 		} catch(Exception e) {
-			String errorStr = "Error in MapCoordinate call";
+			String errorStr = "Error in User call";
 			l.error(errorStr, e);
 			response.sendError(500, errorStr);
 		}

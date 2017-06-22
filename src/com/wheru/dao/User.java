@@ -31,6 +31,12 @@ public class User extends PersistentObject {
 	public String getEmail() {
 		return email;
 	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 	public void setEmail(String email) {
 		this.email = email;
 	}

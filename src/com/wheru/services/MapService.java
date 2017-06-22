@@ -21,8 +21,6 @@ public class MapService {
     	Long eventId, userId;
     	Double latitude, longitude;
     	
-    	MapCoordinate mapCoordinate = new MapCoordinate();
-    	
     	String eventIdStr = null;
     	if(paramMap.get("eventId") == null)
     		throw new ParamNotFoundException("Could not find required parameter 'eventId' in call to addCoordinate.");
@@ -72,10 +70,11 @@ public class MapService {
     	if(userEvent == null) 
     		throw new RecordNotFoundException("Could not find user event record for user " + userId + ", event " + eventId);
     	
+    	MapCoordinate mapCoordinate = new MapCoordinate();
+    	mapCoordinate.setStatus(0);
     	mapCoordinate.setUserEvent(userEvent);
     	mapCoordinate.setName("");
     	mapCoordinate.setDescription("");
-    	mapCoordinate.setStatus(0);
     	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
     	mapCoordinate.setArrivalTime(currentTime);
     	mapCoordinate.setLatestTime(currentTime);
