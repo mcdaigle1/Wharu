@@ -1,0 +1,16 @@
+.map {
+	display: inline-block;
+    height: 500px;
+    width: 750px;
+    margin: 30px 0px 0px 100px;
+}
+
+.map_section {
+	display: inline-block;
+}
+
+.map_user_legend {
+	display: inline-block;
+	margin: 30px 0px 0px 10px;
+	vertical-align: top;
+}

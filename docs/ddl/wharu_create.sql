@@ -5,22 +5,27 @@ CREATE USER 'wharu'@'localhost' IDENTIFIED BY 'wharu';
 GRANT ALL ON *.* TO 'wharu'@'localhost';
 
 CREATE TABLE IF NOT EXISTS user (
-  id              BIGINT UNSIGNED    NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  create_time     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  mod_time        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  status          INT             NOT NULL,
-  email           VARCHAR(256)    NOT NULL UNIQUE,
-  display_name    VARCHAR(256)    NOT NULL UNIQUE,
-  validation_id   VARCHAR(256)    NOT NULL,
-  password_salt   VARCHAR(256)    NOT NULL,
-  password_md5    VARCHAR(128)    NOT NULL
+  id                 BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  create_time        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  mod_time           TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  status             INT             NOT NULL,
+  email              VARCHAR(256)    NOT NULL UNIQUE,
+  display_name       VARCHAR(256)    NOT NULL UNIQUE,
+  validation_id      VARCHAR(256)    NULL,
+  token              VARCHAR(256)    NULL,
+  password_salt      TINYBLOB        NULL,
+  encrypted_password TINYBLOB        NULL,
+  encryption_type    VARCHAR(32)     NULL
 ); 
 
-INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, password_salt, password_md5)
-VALUES (now(), now(), 0, 'mcdaigle1@gmail.com', 'Doog', '1234', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac');
+INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, token, password_salt, encrypted_password, encryption_type)
+VALUES (now(), now(), 0, 'secret@wharu.com', 'Holds JWT Secret key', '', 'token1', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac', 'TRIPLE_DES');
 
-INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, password_salt, password_md5)
-VALUES (now(), now(), 0, 'fooster@domain.com', 'Fooster', '1234', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac');
+INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, token, password_salt, encrypted_password, encryption_type)
+VALUES (now(), now(), 0, 'mcdaigle1@gmail.com', 'Doog', '1234', 'token2', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac', 'PBKDF2');
+
+INSERT INTO user (create_time, mod_time, status, email, display_name, validation_id, token, password_salt, encrypted_password, encryption_type)
+VALUES (now(), now(), 0, 'fooster@domain.com', 'Fooster', '1234', 'token3', 'wharu', '4fb5584245edbb40aa67eed4ebc42fac', 'PBKDF2');
 
 CREATE TABLE IF NOT EXISTS event (
   id              BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -48,10 +53,10 @@ CREATE TABLE IF NOT EXISTS user_event (
 ); 
 
 INSERT INTO user_event (create_time, mod_time, status, user_id, event_id, color)
-VALUES (now(), now(), 1, 1, 1, 'FF0000');
+VALUES (now(), now(), 1, 2, 1, 'FF0000');
 
 INSERT INTO user_event (create_time, mod_time, status, user_id, event_id, color)
-VALUES (now(), now(), 1, 2, 1, '800080');
+VALUES (now(), now(), 1, 3, 1, '800080');
 
 CREATE TABLE IF NOT EXISTS map_coordinate (
   id              BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
