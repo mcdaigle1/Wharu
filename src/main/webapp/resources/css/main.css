@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+body {
+  font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+}
+
+.main_app_section {
+	width: 1000px;
+}
+
+.main_list_title_medium {
+	font-size: 18px;
+	margin: 0px 0px 5px 0px;
+}
+
+.main_list_row {
+	margin: 0px 0px 3px 0px;
+}
+
+.main_list_field_small {
+	font-size: 14px;
+	display: inline-block;
+    width: 30px;
+}
+
+.main_list_field_medium {
+	font-size: 14px;
+	display: inline-block;
+    width: 100px;
+}
+
+.main_list_field_medium_large {
+	font-size: 14px;
+	display: inline-block;
+    width: 150px;
+}
+
+.main_list_field_large {
+	font-size: 14px;
+	display: inline-block;
+    width: 200px;
+}

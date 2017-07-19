@@ -11,10 +11,14 @@ local.properties
 .recommenders
 .DS_Store
 
+node_modules/
+build/
+
 WebContent/work/
 
 WebContent/logs/
 WebContent/WEB-INF/classes/
+WebContent/WEB-INF/lib
 WebContent/wtpwebapps/
 
 # External tool builders
@@ -54,3 +58,6 @@ WebContent/wtpwebapps/
 .cache-main
 .scala_dependencies
 .worksheet
+/target/
+
+yarn.lock

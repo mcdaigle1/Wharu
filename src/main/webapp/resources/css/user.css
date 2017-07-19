@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+.user_login_section {
+    margin: 70px 0px 0px 200px;
+}
+
+.user_login_or {
+    margin: 20px 0px 20px 0px;
+}
+
+.user_login_list_title {
+	margin: 0px 0px 10px 0px;
+}
+
+.user_login_list_row {
+	margin: 0px 0px 7px 20px;
+}
+
+.user_login_submit_button {
+	margin: 0px 0px 0px 20px;
+}

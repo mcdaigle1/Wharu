@@ -256,6 +256,14 @@
         </init-param>
         <load-on-startup>3</load-on-startup>
     </servlet>
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<jsp-file>index.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
 
 
   <!-- NOTE: An SSI Filter is also available as an alternative SSI          -->
@@ -4672,9 +4680,9 @@
   <!-- to use within your application.                                       -->
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.htm</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>jsp/index.jsp</welcome-file>
+        <!-- welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file -->
     </welcome-file-list>
 
 </web-app>

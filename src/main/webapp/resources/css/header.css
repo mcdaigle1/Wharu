@@ -1,0 +1,44 @@
+
+.header_section {
+	margin: 20px 0px 0px 30px;
+}
+
+.header_title {
+	font-size: 26px;
+}
+
+.header_menu {
+	display: inline-block;
+	width: 650px;
+	margin: 20px 0px 0px 0px;
+    vertical-align: top;
+}
+
+.header_logo_section {
+	display: inline-block;
+}
+
+.header_menu_item {
+	display: inline-block;
+	margin: 0px 0px 0px 15px;
+}
+
+.header_account_menu_item {
+	display: inline-block;
+	float: right;
+}
+
+.header_logo {
+	height: 40px;
+}
+
+.header_account_info_dropdown_menu {
+	margin: 5px 0px 0px 0px;
+	background: #dddddd; 
+	position: absolute;
+	width: 150px;
+}
+
+.header_account_info_dropdown_row {
+	padding: 3px 0px 3px 5px;
+}

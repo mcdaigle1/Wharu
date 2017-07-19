@@ -1,0 +1,11 @@
+{/*            <div className="header_account_info_dropdown" onMouseEnter={this.showDropdown.bind(this)} onMouseLeave={this.hideDropdown.bind(this)}>
+//                <div>
+//                        {this.state.loginInfo.email}
+//                </div>
+//                {this.state.dropdownShown
+//                    ? <div className="header_account_info_dropdown_menu">
+//                          //<div className="header_account_info_dropdown_row" onClick={(e) this.logUserOut(e)}>log out</div>
+//                      </div>
+//                    : null
+//                }
+*/}
