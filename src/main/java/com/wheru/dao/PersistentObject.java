@@ -13,6 +13,10 @@ import org.hibernate.Session;
 import com.google.gson.annotations.Expose;
 import com.wheru.services.DBService;
 
+/*
+ * Base class for DAO objects.  Provides the fields common to all DB objects, as well 
+ * as some basic DB access functions
+ */
 @MappedSuperclass
 public abstract class PersistentObject {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -41,6 +45,10 @@ public abstract class PersistentObject {
 		this.status = status;
 	}
 	
+	/*
+	 * Simple save function allows us to save a DAO object without having to 
+	 * wrap the object in a session every time.
+	 */
 	public void save() {
 		Session session = DBService.instance().getSession();
 		try {
@@ -54,6 +62,10 @@ public abstract class PersistentObject {
 		}
 	}
 	
+	/*
+	 * Simple update function allows us to update a DAO object without having to 
+	 * wrap the object in a session every time.
+	 */
 	public void update() {
 		Session session = DBService.instance().getSession();
 		try {
@@ -67,6 +79,11 @@ public abstract class PersistentObject {
 		}
 	}
 
+	/*
+	 * Generic static getter, allows us to get an object by ID.  If some lazy fetching
+	 * needs to happen, you cannot use this method, as the session is closed after the
+	 * core object is retrieved. 
+	 */
 	protected static <T> T get(Class<T> objectClass, Long id) {
 		Session session = DBService.instance().getSession();
 		T persistantObject = null;

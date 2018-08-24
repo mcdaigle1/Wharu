@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+/*
+ * MCD TODO determine if this is the way we want to handle exceptions.  
+ */
 @ControllerAdvice
 public class ExceptionController {
     @ExceptionHandler(ResourceNotFoundException.class)

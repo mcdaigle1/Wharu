@@ -11,13 +11,14 @@ import com.wheru.dao.MapCoordinate;
 import com.wheru.dao.User;
 import com.wheru.dao.UserEvent;
 
-public class DBService {
+public class DBService extends BaseService {
 	private static final DBService _instance = new DBService();
 	
 	private StandardServiceRegistry standardServiceRegistry;
 	private SessionFactory sessionFactory = null;
 	
 	private DBService() {
+		super();
 	}
 	
 	public static DBService instance() {

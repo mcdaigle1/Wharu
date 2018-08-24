@@ -10,7 +10,6 @@ import com.google.gson.GsonBuilder;
 import com.wheru.Exceptions.BaseException;
 
 /**
- * @author michaeldaigle
  * ApiResponseUtil manages formatting and returning http responses
  */
 public class ApiResponseUtil {

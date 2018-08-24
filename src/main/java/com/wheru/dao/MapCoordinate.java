@@ -11,6 +11,11 @@ import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 
+/*
+ * Holds a single map coordinate DB object.  Note that the map coordinate lazy fetches and 
+ * does not expose user events. This is to avoid circular dependencies with the user event object. 
+ * Typically, you would retrieve map coordinates via the user event object.
+ */
 @Entity
 @Table(name = "map_coordinate")
 public class MapCoordinate extends PersistentObject {	

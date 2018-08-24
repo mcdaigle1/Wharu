@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LogService extends BaseService {
-	private static final LogService logService = new LogService();
+	private static final LogService instance = new LogService();
 	private Logger logger = null;
 
 	private LogService() {
@@ -12,7 +12,7 @@ public class LogService extends BaseService {
 	} 
 	
 	public static LogService instance() {
-		return logService;
+		return instance;
 	}
 
 	/**

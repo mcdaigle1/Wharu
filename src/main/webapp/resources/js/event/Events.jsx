@@ -44,7 +44,6 @@ export class Events extends React.Component {
     }
     
     getUserEvents() {
-        console.log("in event getUserEvents");
         let user = HashStore.getValue("user");
         axios.get("http://localhost/api/user_events_by_user?user_id=" + user.id)
         .then(res => { 

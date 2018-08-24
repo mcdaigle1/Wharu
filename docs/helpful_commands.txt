@@ -1,0 +1,9 @@
+# Start the spring server using maven
+mvn spring-boot:run
+
+# webpack run and watch
+webpack --watch
+
+# view apache log:
+cd /usr/local/var/log/apache2
+tail -f error_log

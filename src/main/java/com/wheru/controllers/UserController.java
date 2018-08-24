@@ -1,6 +1,5 @@
 package com.wheru.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.ws.rs.GET;
@@ -16,10 +15,12 @@ import com.wheru.Exceptions.ParamException;
 import com.wheru.Exceptions.PasswordMismatchException;
 import com.wheru.Exceptions.UserNotFoundException;
 import com.wheru.dao.User;
-import com.wheru.dao.UserEvent;
 import com.wheru.services.AuthService;
 import com.wheru.utilities.ApiResponseUtil;
 
+/*
+ * API for user based requests
+ */
 @RestController
 public class UserController extends BaseController {
        
@@ -27,6 +28,10 @@ public class UserController extends BaseController {
         super();      
     }
 
+    /*
+     * Log a user in.  This uses local authorization and may be deprecated.  We may only use facebook 
+     * as the auth service.  
+     */
     @RequestMapping("/api/user_login")
     @GET
     @Produces("application/json")
@@ -56,6 +61,10 @@ public class UserController extends BaseController {
 		return ApiResponseUtil.returnSuccess(payload);
 	}
     
+    /*
+     * Get a user record by email.  This is used after login to get the user info needed to get further
+     * data from the DB.
+     */
     @RequestMapping("/api/user_by_email")
     @GET
     @Produces("application/json")
@@ -74,6 +83,13 @@ public class UserController extends BaseController {
 		return ApiResponseUtil.returnSuccess(user);
 	}
     
+    /* 
+     * Create a user record if it does not exist, otherwise update the existing user.  The reason we have 
+     * both create or update is so a user can log in with Facebook, but we still end up with a record we can
+     * link to events in our DB
+     * MCD TODO right now the update doesn't make a ton of sense because there are only two params,  name and email,
+     * however, ulitmately, we might have tokens, etc ...
+     */
     @RequestMapping("/api/register_user")
     @GET
     @Produces("application/json")
@@ -100,22 +116,5 @@ public class UserController extends BaseController {
 			return ApiResponseUtil.returnError(new GeneralException(e, "General error in user login call"));
 		}
 		return ApiResponseUtil.returnSuccess(user2);
-	}
-    
-    @RequestMapping("/api/user_events_by_user")
-    @GET
-    @Produces("application/json")
-	public Response userEventsByUser(@RequestParam(value = "user_id", required = false) Long userId) {
-    	ArrayList<UserEvent> userEvents = new ArrayList<UserEvent>();
-    	
-    	try {	
-    		valid.mustExist("user_id", userId);
-    		userEvents = UserEvent.getByUser(userId);
-		} catch(ParamException pe) {
-			return ApiResponseUtil.returnError(pe);
-		} catch(Exception e) {
-			return ApiResponseUtil.returnError(new GeneralException(e, "General error in user login call"));
-		}
-		return ApiResponseUtil.returnSuccess(userEvents);
 	}
 }

@@ -15,12 +15,18 @@ import com.wheru.Exceptions.InvalidParamException;
 import com.wheru.dao.Event;
 import com.wheru.utilities.ApiResponseUtil;
 
+/*
+ * API for event based requests
+ */
 @RestController
 public class EventController extends BaseController {      
     public EventController() {
         super();      
     }
 
+    /*
+     * Get a single event based on the event ID
+     */
     @RequestMapping("/api/event")
     @GET
     @Produces("text/plain")
@@ -37,6 +43,9 @@ public class EventController extends BaseController {
 		return ApiResponseUtil.returnSuccess(event);
 	}
 
+    /*
+     * Get all events by user ID.
+     */
     @RequestMapping("/api/events_by_user")
     @GET
     @Produces("text/plain")

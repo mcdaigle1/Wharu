@@ -17,9 +17,13 @@ import com.google.gson.annotations.Expose;
 import com.wheru.Exceptions.DaoException;
 import com.wheru.services.DBService;
 
-/**
- * @author michaeldaigle
- *
+/*
+ * Holds a single event DB object.  Note that the event lazy fetches and does not expose
+ * user events. This is to avoid circular dependencies with the user event object. Typically, 
+ * The event object would be retrieved via the user event.  
+ * 
+ * MCD TODO - add a default location (lat/long?) so we have a place to start the map if there
+ * are not yet any coordinates
  */
 @Entity
 @Table(name = "event")

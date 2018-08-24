@@ -11,8 +11,19 @@ import com.wheru.dao.MapCoordinate;
 import com.wheru.dao.UserEvent;
 
 public class MapService {
+	private static final MapService _instance = new MapService();
+	
+	private MapService() {
+		super();
+	}
+	
+	public static MapService instance() {
+		return _instance;
+	}
+	
     public void addCoordinate(Map<String, String[]> paramMap) 
     		throws ParamNotFoundException, InvalidParamException, DaoException, RecordNotFoundException {
+
     	
     	Long eventId, userId;
     	Double latitude, longitude;

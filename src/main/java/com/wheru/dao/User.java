@@ -16,6 +16,11 @@ import com.google.gson.annotations.Expose;
 import com.wheru.Exceptions.DaoException;
 import com.wheru.services.DBService;
 
+/*
+ * Holds a single user DB object.  Note that the user lazy fetches and does not expose
+ * user events. This is to avoid circular dependencies with the user event object. If you
+ * want to get the user and all associated events, you should query via the user event object
+ */
 @Entity
 @Table(name = "user")
 public class User extends PersistentObject {

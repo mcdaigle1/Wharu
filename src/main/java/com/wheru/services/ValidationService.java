@@ -8,7 +8,7 @@ import com.wheru.Exceptions.InvalidParamException;
 
 public class ValidationService extends BaseService {
 
-	private static final ValidationService validationService = new ValidationService();
+	private static final ValidationService _instance = new ValidationService();
 	private EmailValidator emailValidator = EmailValidator.getInstance();
 
 	private ValidationService() {
@@ -16,7 +16,7 @@ public class ValidationService extends BaseService {
 	} 
 	
 	public static ValidationService instance() {
-		return validationService;
+		return _instance;
 	}
 
 	public <T> ValidationService mustExist(String paramName, T param) throws InvalidParamException {
@@ -69,8 +69,9 @@ public class ValidationService extends BaseService {
 	 * @return this ValidationService, which allows us to chain these validations
 	 * @throws InvalidParamException if invalid
 	 */
-	public static void isLongitude(Double longitude) throws InvalidParamException {
+	public ValidationService isLongitude(Double longitude) throws InvalidParamException {
 		if(longitude > 180 || longitude < -180) 
 			throw new InvalidParamException("Parameter " + longitude + " is an out of bounds longitude.");
+		return this;
 	}
 }

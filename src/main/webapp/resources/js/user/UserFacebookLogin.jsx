@@ -44,7 +44,6 @@ export class UserFacebookLogin extends React.Component {
             // MCD TODO make a call to handle the response status
             HashStore.addValue("user", jsonObj.payload);
             HashStore.addValue("loginInfo", loginValue);
-            console.log("in fb login, user: " + JSON.stringify(HashStore.getValue("user")));
             this.context.router.history.push("/home");
         }).catch(e => {
             console.error(e);

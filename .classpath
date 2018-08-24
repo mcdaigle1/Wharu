@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -90,5 +91,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/tomcat-embed-websocket-8.5.15.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

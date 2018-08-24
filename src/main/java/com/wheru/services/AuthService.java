@@ -27,7 +27,7 @@ import com.wheru.utilities.SecurityUtil;
 
 public class AuthService extends BaseService {
 	
-	private static final AuthService authService = new AuthService();
+	private static final AuthService _instance = new AuthService();
 	private String jwtSecretKey = null;
 
 	private AuthService() {
@@ -48,7 +48,7 @@ public class AuthService extends BaseService {
 	} 
 	
 	public static AuthService instance() {
-		return authService;
+		return _instance;
 	}
 	
 	/**
