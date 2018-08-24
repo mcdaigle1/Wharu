@@ -1,28 +1,20 @@
 /*
  * Copyright (c) 2018. Blue Cask Software
  *
- *
+ * Base class for DAO objects.  Provides the fields common to all DB objects, as well
+ * as some basic DB access functions.  I use DAO objects to wrap the hibernate calls.
+ * This is not typical, but I want to insulate the business logic from the raw data calls.
  */
 
 package com.wheru.dao;
 
-import java.sql.Timestamp;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-
-import org.hibernate.Session;
-
 import com.google.gson.annotations.Expose;
 import com.wheru.services.DBService;
+import org.hibernate.Session;
 
-/*
- * Base class for DAO objects.  Provides the fields common to all DB objects, as well 
- * as some basic DB access functions
- */
+import javax.persistence.*;
+import java.sql.Timestamp;
+
 @MappedSuperclass
 public abstract class PersistentObject {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)

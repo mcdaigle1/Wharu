@@ -1,27 +1,21 @@
 /*
  * Copyright (c) 2018. Blue Cask Software
  *
+ * Holds a single map coordinate DB object.  Note that the map coordinate lazy fetches and
+ * does not expose user events. This is to avoid circular dependencies with the user event object.
+ * Typically, you would retrieve map coordinates via the user event object.
  *
+ * I use DAO objects to wrap the hibernate calls. This is not typical, but I want to insulate the
+ * business logic from the raw data calls.
  */
 
 package com.wheru.dao;
 
-import java.sql.Timestamp;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.google.gson.annotations.Expose;
 
-/*
- * Holds a single map coordinate DB object.  Note that the map coordinate lazy fetches and 
- * does not expose user events. This is to avoid circular dependencies with the user event object. 
- * Typically, you would retrieve map coordinates via the user event object.
- */
+import javax.persistence.*;
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "map_coordinate")
 public class MapCoordinate extends PersistentObject {	

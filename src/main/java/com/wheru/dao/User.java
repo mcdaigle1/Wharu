@@ -1,32 +1,26 @@
 /*
  * Copyright (c) 2018. Blue Cask Software
  *
+ * Holds a single user DB object.  Note that the user lazy fetches and does not expose
+ * user events. This is to avoid circular dependencies with the user event object. If you
+ * want to get the user and all associated events, you should query via the user event object
  *
+ * I use DAO objects to wrap the hibernate calls. This is not typical, but I want to insulate the
+ * business logic from the raw data calls.
  */
 
 package com.wheru.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.google.gson.annotations.Expose;
 import com.wheru.Exceptions.DaoException;
 import com.wheru.services.DBService;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
-/*
- * Holds a single user DB object.  Note that the user lazy fetches and does not expose
- * user events. This is to avoid circular dependencies with the user event object. If you
- * want to get the user and all associated events, you should query via the user event object
- */
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "user")
 public class User extends PersistentObject {

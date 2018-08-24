@@ -1,35 +1,28 @@
 /*
  * Copyright (c) 2018. Blue Cask Software
  *
+ * Holds a single user event DB object, which is the mapping between a user and one event.  This
+ * is, however, more than a join, as it also references other info related to a user/event, like
+ * the map coordinates and the user/event state.
  *
+ * Note that a user event eager loads and exposes (to GSON) the user, event, and map coordinates
+ *
+ * I use DAO objects to wrap the hibernate calls. This is not typical, but I want to insulate the
+ * business logic from the raw data calls.
  */
 
 package com.wheru.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.google.gson.annotations.Expose;
 import com.wheru.Exceptions.DaoException;
 import com.wheru.services.DBService;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
-/*
- * Holds a single user event DB object, which is the mapping between a user and one event.  This
- * is, however, more than a join, as it also references other info related to a user/event, like
- * the map coordinates and the user/event state.
- * 
- * Note that a user event eager loads and exposes (to GSON) the user, event, and map coordinates
- */
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "user_event")
 public class UserEvent extends PersistentObject {
