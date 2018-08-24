@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2018. Blue Cask Software
+ *
+ *
+ */
+
 package com.wheru.utilities;
 
 import javax.servlet.ServletContextEvent;
