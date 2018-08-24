@@ -1,31 +1,24 @@
 package com.wheru.services;
 
+import com.wheru.Exceptions.*;
+import com.wheru.dao.User;
+import com.wheru.utilities.SecurityUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
-
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Claims;
-
 import java.util.Arrays;
 import java.util.Date;
 
-import com.wheru.Exceptions.AuthException;
-import com.wheru.Exceptions.DaoException;
-import com.wheru.Exceptions.ParamNotFoundException;
-import com.wheru.Exceptions.PasswordMismatchException;
-import com.wheru.Exceptions.RecordNotFoundException;
-import com.wheru.Exceptions.UserNotFoundException;
-import com.wheru.dao.User;
-import com.wheru.utilities.SecurityUtil;
-
-public class AuthService extends BaseService {
+public class AuthService extends com.wheru.services.BaseService {
 	
 	private static final AuthService _instance = new AuthService();
 	private String jwtSecretKey = null;
@@ -66,7 +59,8 @@ public class AuthService extends BaseService {
 	}
 	
 	/**
-	 * @param paramMap - the http request parameters
+	 * @param userEmail - the user's email
+	 * @param password - the user's password
 	 * @return String holding the new user token
 	 * @throws ParamNotFoundException 
 	 * @throws PasswordMismatchException
